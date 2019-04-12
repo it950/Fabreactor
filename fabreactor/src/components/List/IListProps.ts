@@ -6,7 +6,7 @@ export interface IFabreactorListProps {
 
     defaultViewKey?: string;
     language?: string;
-    onSearch?: (query: string) => Promise<FabreactorResultPage>;
+    onSearch?: (query: string, page: number) => Promise<FabreactorResultPage>;
     onDeleteItem?: (itemId: any) => Promise<boolean>;
     onGetView: (query: FabreactorQuery) => Promise<FabreactorResultPage>;
     onNewItem?: () => Promise<FabreactorNewItemResult>;

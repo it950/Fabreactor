@@ -20,7 +20,7 @@ export default class FabreactorListStore {
 
     private deleteSubscription: Subscription;
     private viewSubscription: Subscription;
-
+    private searchSubscription: Subscription;
 
     @observable
     public items: FabreactorResultPage[] = [];
@@ -39,7 +39,6 @@ export default class FabreactorListStore {
 
     @observable
     public newItemPanelVisible: boolean;
-
 
     @observable
     public actionProgress: FabriactActionProgress | null;
@@ -68,6 +67,11 @@ export default class FabreactorListStore {
     @computed
     get hasNextPage() {
         return this.nextPage > 1;
+    }
+
+    @computed
+    get currentViewFields() {
+        return this.commandBarStore.currentViewFields;
     }
 
     @computed
@@ -105,24 +109,6 @@ export default class FabreactorListStore {
     }
 
     @computed
-    get currentViewFields() {
-        if (this.commandBarStore.currentView) {
-            return this.commandBarStore.currentView.fields;
-        }
-
-        return [];
-    }
-
-    @computed
-    get currentViewKey() {
-        if (this.commandBarStore.currentView) {
-            return this.commandBarStore.currentView.key;
-        }
-
-        return null;
-    }
-
-    @computed
     get currentViewItem() {
         if (this.selectedItems.length == 1) {
             return this.selectedItems[0];
@@ -130,7 +116,6 @@ export default class FabreactorListStore {
 
         return null;
     }
-
 
     @computed
     get defaultViewKey() {
@@ -141,27 +126,23 @@ export default class FabreactorListStore {
         return this.views[0].key;
     }
 
+    @computed
+    get itemProperties() {
+        return this.api.itemProperties;
+    }
 
     @action
     public onSelectionChanged = () => {
-        this.viewItemPanelVisible = this.detailsListStore.getSelection().length == 1 && this.detailsListStore.getSelection().length >= this.selectedItems.length;
-        this.selectedItems = this.detailsListStore.getSelection();
+        const selection = this.detailsListStore.getSelection();
+
+        this.viewItemPanelVisible = selection.length == 1 && selection.length >= this.selectedItems.length;
+        this.selectedItems = selection;
     }
 
 
     @action
     public onNextPage = () => {
         this.fetchView(this.buildQuery(this.nextPage));
-
-    }
-
-    @action
-    public onSearch = (query: string) => {
-        if (this.api.onSearch) {
-            return this.api.onSearch(query);
-        }
-
-        return null;
     }
 
     @action
@@ -171,63 +152,65 @@ export default class FabreactorListStore {
         from(this.api.onNewItem!()).pipe(map(y => {
             this.newItemStore.newItemFields = y.fields;
             this.newItemStore.newItem = y.item;
-            console.log(y);
         })).subscribe();
-
-     //   return null;
-
     }
+
+    @action
+    public onSearch = (query: string) => {
+        this.fetchSearch(query, 1);
+    }
+
     @action
     public onViewClicked = (viewKey: string) => {
-        this.cancelDelete();
-
         this.fetchView(this.buildQuery(1));
     }
 
 
     @action
-    public fetchView = (query: FabreactorQuery) => {
-        this.cancelView();
-
-        this.viewSubscription = this.onGetView(query).subscribe();
+    private mapResultPage = (viewId: string, result: FabreactorResultPage) => {
+        if (this.commandBarStore.currentViewKey == viewId || viewId == this.commandBarStore.searchKey) {
+            if (result.page == 1) {
+                this.items = [{ items: result.items, page: result.page, totalPages: result.totalPages }];
+            }
+            else {
+                if (this.nextPage == result.page) {
+                    this.items.push({ items: result.items, page: result.page, totalPages: result.totalPages });
+                }
+            }
+        }
     }
 
     @action
-    public onGetView = (query: FabreactorQuery) => {
+    private onGetSearch = (query: string, page: number) => {
+        if (page == 1) {
+            this.viewLoading = true;
+        }
+
+        return from(this.api.onSearch!(query, page)).pipe(
+            map(y => this.mapResultPage(this.commandBarStore.searchKey, y)),
+            finalize(() => {
+                this.viewLoading = false;
+            }));
+    }
+
+    @action
+    private onGetView = (query: FabreactorQuery) => {
         if (query.page == 1) {
             this.viewLoading = true;
         }
 
-        return from(this.api.onGetView(query)).pipe(map(y => {
-                const { page, items, totalPages } = y;
-
-                if (this.currentViewKey == query.viewKey) {
-                    if (page == 1) {
-                        this.items = [{ items: items, page: page, totalPages: totalPages }];
-                    }
-                    else {
-                        if (this.nextPage == page) {
-                            this.items.push({ items: items, page: page, totalPages: totalPages });
-                        }
-                    }
-                }
-
-                this.viewLoading = false; 
-            }));
+        return from(this.api.onGetView(query)).pipe(
+            map(y => this.mapResultPage(query.viewKey, y)),
+            finalize(() => {
+            this.viewLoading = false;
+        }));
     }
-
 
     @action
     private removeItem = (itemId: any) => {
         this.items.forEach(t => {
             t.items = t.items.filter(t => t[this.api.itemProperties.key] != itemId);
         });
-    }
-
-
-    @computed
-    get itemProperties() {
-        return this.api.itemProperties;
     }
 
     @action
@@ -305,9 +288,12 @@ export default class FabreactorListStore {
             this.viewSubscription.unsubscribe();
         }
 
+        if (this.searchSubscription) {
+            this.searchSubscription.unsubscribe();
+        }
+
         this.viewLoading = false;
     }
-
 
     @action
     public cancelAllActions = () => {
@@ -321,6 +307,20 @@ export default class FabreactorListStore {
             page: page,
             filters: []
         }
+    }
+
+    private fetchSearch = (query: string, page: number) => {
+        this.cancelView();
+        this.cancelDelete();
+
+        this.searchSubscription = this.onGetSearch(query, page).subscribe();
+    }
+
+    private fetchView = (query: FabreactorQuery) => {
+        this.cancelView();
+        this.cancelDelete();
+
+        this.viewSubscription = this.onGetView(query).subscribe();
     }
 
     public init = () => {

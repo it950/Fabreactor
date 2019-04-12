@@ -18,6 +18,7 @@ export class FabreactorList extends React.Component<IFabreactorListProps, any> {
             defaultViewKey: this.props.defaultViewKey,
             onDeleteItem: this.props.onDeleteItem,
             onNewItem: this.props.onNewItem,
+            onSearch: this.props.onSearch,
             itemProperties: this.props.itemProperties,
             language: this.props.language
         });

@@ -3,9 +3,12 @@ import { ICommandBarItemProps } from "office-ui-fabric-react/lib/CommandBar";
 import { IContextualMenuProps } from "office-ui-fabric-react/lib/ContextualMenu";
 import FabreactorListStore from "./ListStore";
 
+
 export default class FabreactorCommandBarStore {
 
     private root: FabreactorListStore;
+
+    searchKey = "search";
 
     constructor(private rootStore: FabreactorListStore) {
         this.root = this.rootStore;
@@ -44,7 +47,7 @@ export default class FabreactorCommandBarStore {
 
         if (this.root.hasSearch) {
             items.push({
-                key: "search",
+                key: this.searchKey,
             });
         }
 
@@ -84,10 +87,19 @@ export default class FabreactorCommandBarStore {
             })
         };
 
+        const searchName = `${this.locales.strings.search}: ` + this.searchQuery;
+
+        if (this.searchQuery != null) {
+            subMenu.items.push({
+                name: searchName,
+                key: this.searchKey,
+            });
+        }
+
         const menu: ICommandBarItemProps[] = [
             {
                 key: 'currentView',
-                name: this.currentView!.name,
+                name: this.searchQuery ? searchName : this.currentView!.name,
                 subMenuProps: subMenu
             }
 
@@ -96,24 +108,40 @@ export default class FabreactorCommandBarStore {
         return menu;
     }
 
+    @computed
+    get currentViewFields() {
+        if (this.currentView) {
+            return this.currentView.fields;
+        }
+
+        if (this.searchQuery) {
+            return this.root.views.find(r => r.key == this.root.defaultViewKey)!.fields;
+        }
+
+        return [];
+    }
+
     @action
     public onViewClicked = (key: string) => {
-        this.currentViewKey = key;
-        this.root.onViewClicked(key);
+        if (this.currentViewKey != key && key != this.searchKey) {
+            this.searchQuery = null;
+            this.currentViewKey = key;
+            this.root.onViewClicked(key);
+        }
     }
 
     @action
     public onSearch = (query: string) => {
         this.searchQuery = query;
 
-       // of(onViewChange(this.props.views[0].key)).subscribe();
+        this.root.onSearch(this.searchQuery);
     }
 
     @action
     public onSearchCleared = () => {
         this.searchQuery = null;
 
-      //  of(onViewChange(this.props.views[0].key)).subscribe();
+        this.onViewClicked(this.root.defaultViewKey);
     }
 
     @action

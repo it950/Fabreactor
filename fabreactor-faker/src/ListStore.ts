@@ -62,7 +62,8 @@ export default class FabreactorListStore {
             .toPromise();
     }
 
-    public onSearch = (query: string): Promise<FabreactorResultPage> => {
+    public onSearch = (query: string, page: number): Promise<FabreactorResultPage> => {
+        console.log(this.data.items.filter(t => t.name.toLowerCase().indexOf(query) > -1));
         return of(this.data.items.filter(t => t.name.toLowerCase().indexOf(query) > -1)).pipe(delay(500), map(y => {
             return {
                 items: y,
