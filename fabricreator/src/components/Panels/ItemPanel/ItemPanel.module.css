@@ -1,0 +1,30 @@
+﻿.itemPanelHeader {
+    height: 88px;
+    color: white;
+}
+
+.itemPanelHeader .itemPanelHeaderGrid {
+    padding: 8px 20px 8px 20px;
+}
+
+.itemPanelHeaderGrid .ms-Persona-initials {
+    border-radius: inherit;
+}
+
+.itemPanelHeaderGrid .ms-Persona-image {
+    border-radius: inherit;
+}
+
+.itemPanelLargeFont {
+    font-size: 15px;
+}
+
+.itemPanelSmallFont {
+    font-size: 13px;
+}
+
+.itemPanelHeader .itemPanelHeaderGrid .itemPanelCloseButton {
+    padding-right: 40px;
+    font-size: 15px;
+    cursor: pointer;
+}

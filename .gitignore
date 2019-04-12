@@ -3,3 +3,11 @@
 ################################################################################
 
 /.vs
+*.sln
+/fabricreator-storybook/node_modules
+/fabricreator-storybook/build/lib
+*.njsproj
+/fabricreator-faker/build/lib
+/fabricreator-faker/node_modules
+/fabricreator/node_modules
+/fabricreator/build/lib
