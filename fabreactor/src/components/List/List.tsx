@@ -1,18 +1,18 @@
 ﻿import * as React from 'react';
 import { observer, Provider } from 'mobx-react';
-import { IFabricreatorListProps } from './IListProps';
-import FabricreatorListStore from '../../stores/ListStore';
-import { FabricreatorListBase } from './ListBase';
+import { IFabreactorListProps } from './IListProps';
+import FabreactorListStore from '../../stores/ListStore';
+import { FabreactorListBase } from './ListBase';
 
 @observer
-export class FabricreatorList extends React.Component<IFabricreatorListProps, any> {
+export class FabreactorList extends React.Component<IFabreactorListProps, any> {
 
-    store: FabricreatorListStore;
+    store: FabreactorListStore;
 
-    constructor(props: IFabricreatorListProps) {
+    constructor(props: IFabreactorListProps) {
         super(props);
 
-        this.store = new FabricreatorListStore({
+        this.store = new FabreactorListStore({
             views: this.props.views,
             onGetView: this.props.onGetView,
             defaultViewKey: this.props.defaultViewKey,
@@ -27,7 +27,7 @@ export class FabricreatorList extends React.Component<IFabricreatorListProps, an
     render() {
         return (
             <Provider store={this.store}>
-                <FabricreatorListBase />
+                <FabreactorListBase />
             </Provider>
         );
     }

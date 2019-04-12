@@ -1,12 +1,12 @@
 ﻿import * as React from 'react';
 import { observer } from 'mobx-react';
-import { IFabricreatorDeleteFailedMessageBarProps } from './IDeleteFailedMessageBarProps';
+import { IFabreactorDeleteFailedMessageBarProps } from './IDeleteFailedMessageBarProps';
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 
 @observer
-export class FabricreatorDeleteFailedMessageBar extends React.Component<IFabricreatorDeleteFailedMessageBarProps, any> {
+export class FabreactorDeleteFailedMessageBar extends React.Component<IFabreactorDeleteFailedMessageBarProps, any> {
 
-    constructor(props: IFabricreatorDeleteFailedMessageBarProps) {
+    constructor(props: IFabreactorDeleteFailedMessageBarProps) {
         super(props);
 
     }

@@ -1,7 +1,7 @@
 {
-  "name": "fabricreator-faker",
+  "name": "fabreactor-faker",
   "version": "0.0.0",
-  "description": "fabricreator-faker",
+  "description": "fabreactor-faker",
   "main": "build/lib/index.js",
   "types": "build/lib/index.d.ts",
   "author": {
@@ -25,7 +25,7 @@
     "faker": "4.1.0"
   },
   "dependencies": {
-    "fabricreator": "file:../fabricreator",
+    "fabreactor": "file:../fabreactor",
     "rxjs": "6.4.0"
   }
 }

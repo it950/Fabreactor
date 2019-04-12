@@ -1,6 +1,6 @@
 ﻿import locales from "../../locales";
 
-export interface IFabricreatorFormProps {
+export interface IFabreactorFormProps {
     locales: locales;
 
 }

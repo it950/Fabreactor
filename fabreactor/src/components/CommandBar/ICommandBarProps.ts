@@ -1,5 +1,5 @@
-﻿import FabricreatorCommandBarStore from "../../stores/CommandBarStore";
+﻿import FabreactorCommandBarStore from "../../stores/CommandBarStore";
 
-export interface IFabricreatorCommandBarProps {
-    store?: FabricreatorCommandBarStore;
+export interface IFabreactorCommandBarProps {
+    store?: FabreactorCommandBarStore;
 }

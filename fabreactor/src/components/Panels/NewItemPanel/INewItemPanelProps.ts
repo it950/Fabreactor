@@ -1,6 +1,6 @@
-﻿import FabricreatorNewItemStore from "../../../stores/NewItemStore";
+﻿import FabreactorNewItemStore from "../../../stores/NewItemStore";
 
-export interface IFabricreatorNewItemPanelProps {
-    store?: FabricreatorNewItemStore;
+export interface IFabreactorNewItemPanelProps {
+    store?: FabreactorNewItemStore;
   
 }

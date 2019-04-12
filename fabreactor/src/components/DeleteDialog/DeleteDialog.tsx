@@ -1,13 +1,13 @@
 ﻿import * as React from 'react';
 import { observer } from 'mobx-react';
-import { IFabricreatorDeleteDialogProps } from './IDeleteDialogProps';
+import { IFabreactorDeleteDialogProps } from './IDeleteDialogProps';
 import { Dialog, DialogFooter, DialogType } from 'office-ui-fabric-react/lib/Dialog';
 import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
 
 @observer
-export class FabricreatorDeleteDialog extends React.Component<IFabricreatorDeleteDialogProps, any> {
+export class FabreactorDeleteDialog extends React.Component<IFabreactorDeleteDialogProps, any> {
 
-    constructor(props: IFabricreatorDeleteDialogProps) {
+    constructor(props: IFabreactorDeleteDialogProps) {
         super(props);
 
     }

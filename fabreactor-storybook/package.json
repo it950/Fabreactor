@@ -1,7 +1,7 @@
 {
-  "name": "fabricreator-storybook",
+  "name": "fabreactor-storybook",
   "version": "0.0.0",
-  "description": "fabricreator-storybook",
+  "description": "fabreactor-storybook",
   "main": "build/lib/index.js",
   "types": "build/lib/index.d.ts",
   "author": {
@@ -44,8 +44,8 @@
   "dependencies": {
     "react": "16.7.0",
     "react-dom": "16.7.0",
-    "fabricreator": "file:../fabricreator",
-    "fabricreator-faker": "file:../fabricreator-faker",
+    "fabreactor": "file:../fabreactor",
+    "fabreactor-faker": "file:../fabreactor-faker",
     "office-ui-fabric-react": "6.163.0"
   }
 }

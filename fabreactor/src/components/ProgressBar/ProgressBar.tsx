@@ -1,13 +1,13 @@
 ﻿import * as React from 'react';
 import { observer } from 'mobx-react';
-import { IFabricreatorProgressBarProps } from './IProgressBarProps';
+import { IFabreactorProgressBarProps } from './IProgressBarProps';
 import { ProgressIndicator } from 'office-ui-fabric-react/lib/ProgressIndicator';
 import './ProgressBar.module.css';
 
 @observer
-export class FabricreatorProgressBar extends React.Component<IFabricreatorProgressBarProps, any> {
+export class FabreactorProgressBar extends React.Component<IFabreactorProgressBarProps, any> {
 
-    constructor(props: IFabricreatorProgressBarProps) {
+    constructor(props: IFabreactorProgressBarProps) {
         super(props);
     }
 

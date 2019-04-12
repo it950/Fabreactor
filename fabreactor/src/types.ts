@@ -1,47 +1,47 @@
-﻿export interface FabricreatorFilter {
+﻿export interface FabreactorFilter {
     key: string;
     values: any[];
 }
 
-export interface FabricreatorQuery {
+export interface FabreactorQuery {
     viewKey: string;
     page: number;
-    filters: FabricreatorFilter[];
+    filters: FabreactorFilter[];
 }
 
-export interface FabricreatorResultPage {
+export interface FabreactorResultPage {
     items: any[];
     page: number;
     totalPages: number;
 }
 
 
-export interface FabricreatorNewItemResult {
+export interface FabreactorNewItemResult {
     item: any;
-    fields: FabricreatorField[];
+    fields: FabreactorField[];
 }
 
-export interface FabricreatorAction {
+export interface FabreactorAction {
     name: string;
     key: string;
     icon?: string;
-    type: FabricreatorActionType;
-    actions?: FabricreatorAction[];
+    type: FabreactorActionType;
+    actions?: FabreactorAction[];
 }
 
-export interface FabricreatorGroup {
+export interface FabreactorGroup {
     name: string;
     key: string;
     collapsable?: boolean;
-    actions?: FabricreatorAction[];
-    fields?: FabricreatorField[];
+    actions?: FabreactorAction[];
+    fields?: FabreactorField[];
 
 }
 
-export interface FabricreatorField {
+export interface FabreactorField {
     name: string;
     key: string;
-    type: FabricreatorFieldType;
+    type: FabreactorFieldType;
     sortable?: boolean;
     minWidth?: number;
     filterable?: boolean;
@@ -49,11 +49,11 @@ export interface FabricreatorField {
 
 export interface FabriactViewForm {
     item: any;
-    groups: FabricreatorGroup[];
-    actions?: FabricreatorAction[];
+    groups: FabreactorGroup[];
+    actions?: FabreactorAction[];
 }
 
-export enum FabricreatorFieldType {
+export enum FabreactorFieldType {
     text = 0,
     url = 1,
     email = 2,
@@ -76,28 +76,28 @@ export enum FabricreatorFieldType {
 }
 
 
-export enum FabricreatorDynamicViewType {
+export enum FabreactorDynamicViewType {
     month = 0,
     year = 1,
 }
 
-export enum FabricreatorActionType {
+export enum FabreactorActionType {
     custom = 0,
     newForm = 1,
     viewForm = 2,
     service = 3,
 }
 
-export interface FabricreatorView {
+export interface FabreactorView {
     name: string;
     key: string;
-    dynamicViewType?: FabricreatorDynamicViewType;
-    actions?: FabricreatorAction[];
-    fields: FabricreatorField[];
+    dynamicViewType?: FabreactorDynamicViewType;
+    actions?: FabreactorAction[];
+    fields: FabreactorField[];
 }
 
 
-export interface FabricreatorItemProperties {
+export interface FabreactorItemProperties {
     key: string;
     title: string;
     description: string;

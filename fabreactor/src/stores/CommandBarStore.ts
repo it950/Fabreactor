@@ -1,13 +1,13 @@
 ﻿import { computed, observable, action } from "mobx";
 import { ICommandBarItemProps } from "office-ui-fabric-react/lib/CommandBar";
 import { IContextualMenuProps } from "office-ui-fabric-react/lib/ContextualMenu";
-import FabricreatorListStore from "./ListStore";
+import FabreactorListStore from "./ListStore";
 
-export default class FabricreatorCommandBarStore {
+export default class FabreactorCommandBarStore {
 
-    private root: FabricreatorListStore;
+    private root: FabreactorListStore;
 
-    constructor(private rootStore: FabricreatorListStore) {
+    constructor(private rootStore: FabreactorListStore) {
         this.root = this.rootStore;
 
         this.currentViewKey = this.root.defaultViewKey;

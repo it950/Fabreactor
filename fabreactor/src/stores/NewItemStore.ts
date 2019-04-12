@@ -1,18 +1,18 @@
-﻿import FabricreatorListStore from "./ListStore";
+﻿import FabreactorListStore from "./ListStore";
 import { computed, observable } from "mobx";
-import { FabricreatorField } from "../types";
+import { FabreactorField } from "../types";
 
-export default class FabricreatorNewItemStore {
+export default class FabreactorNewItemStore {
 
-    root: FabricreatorListStore;
+    root: FabreactorListStore;
 
     @observable
     public newItem: any;
 
     @observable
-    public newItemFields: FabricreatorField[] = [];
+    public newItemFields: FabreactorField[] = [];
 
-    constructor(private rootStore: FabricreatorListStore) {
+    constructor(private rootStore: FabreactorListStore) {
         this.root = this.rootStore;
 
     }

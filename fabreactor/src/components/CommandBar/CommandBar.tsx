@@ -1,15 +1,15 @@
 ﻿import * as React from 'react';
 import { observer, inject } from 'mobx-react';
 import './CommandBar.module.css';
-import { IFabricreatorCommandBarProps } from './ICommandBarProps';
+import { IFabreactorCommandBarProps } from './ICommandBarProps';
 import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/CommandBar';
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
-import { FabricreatorDeleteDialog } from '../DeleteDialog/DeleteDialog';
+import { FabreactorDeleteDialog } from '../DeleteDialog/DeleteDialog';
 
 @inject('store')
 @observer
-export class FabricreatorCommandBar extends React.Component<IFabricreatorCommandBarProps, any> {
-    constructor(props: IFabricreatorCommandBarProps) {
+export class FabreactorCommandBar extends React.Component<IFabreactorCommandBarProps, any> {
+    constructor(props: IFabreactorCommandBarProps) {
         super(props);
     }
 
@@ -38,7 +38,7 @@ export class FabricreatorCommandBar extends React.Component<IFabricreatorCommand
             <div>
                 <CommandBar items={renderItems} farItems={farItems} />
 
-                <FabricreatorDeleteDialog locales={locales} isVisible={confirmDelete}
+                <FabreactorDeleteDialog locales={locales} isVisible={confirmDelete}
                     onCancel={onDeleteDismissed} onConfirm={onDeleteConfirmed} itemCount={selectedItemCount} />
 
             </div>

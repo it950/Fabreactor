@@ -1,16 +1,16 @@
 ﻿import * as React from 'react';
 import { observer, inject, Provider } from 'mobx-react';
-import { IFabricreatorListBaseProps } from './IListBaseProps';
-import { FabricreatorDetailsList } from '../DetailsList/DetailsList';
-import { FabricreatorCommandBar } from '../CommandBar/CommandBar';
-import { FabricreatorDeleteFailedMessageBar } from '../MessageBars/DeleteFailedMessageBar/DeleteFailedMessageBar';
-import { FabricreatorViewItemPanel } from '../Panels/ViewItemPanel/ViewItemPanel';
-import { FabricreatorNewItemPanel } from '../Panels/NewItemPanel/NewItemPanel';
+import { IFabreactorListBaseProps } from './IListBaseProps';
+import { FabreactorDetailsList } from '../DetailsList/DetailsList';
+import { FabreactorCommandBar } from '../CommandBar/CommandBar';
+import { FabreactorDeleteFailedMessageBar } from '../MessageBars/DeleteFailedMessageBar/DeleteFailedMessageBar';
+import { FabreactorViewItemPanel } from '../Panels/ViewItemPanel/ViewItemPanel';
+import { FabreactorNewItemPanel } from '../Panels/NewItemPanel/NewItemPanel';
 
 @inject("store")
 @observer
-export class FabricreatorListBase extends React.Component<IFabricreatorListBaseProps, any> {
-    constructor(props: IFabricreatorListBaseProps) {
+export class FabreactorListBase extends React.Component<IFabreactorListBaseProps, any> {
+    constructor(props: IFabreactorListBaseProps) {
         super(props);
       
 
@@ -29,22 +29,22 @@ export class FabricreatorListBase extends React.Component<IFabricreatorListBaseP
 
         return (
             <span>
-                <FabricreatorDeleteFailedMessageBar locales={locales} itemCount={itemsDeleteFailed.length} onDismiss={dismissFailedDelete} />
+                <FabreactorDeleteFailedMessageBar locales={locales} itemCount={itemsDeleteFailed.length} onDismiss={dismissFailedDelete} />
 
                 <Provider store={commandBarStore}>
-                    <FabricreatorCommandBar />
+                    <FabreactorCommandBar />
                 </Provider>
 
                 <Provider store={detailsListStore}>
-                    <FabricreatorDetailsList />
+                    <FabreactorDetailsList />
                 </Provider>
 
                 <Provider store={viewItemStore}>
-                    <FabricreatorViewItemPanel />
+                    <FabreactorViewItemPanel />
                 </Provider>
 
                 <Provider store={newItemStore}>
-                    <FabricreatorNewItemPanel />
+                    <FabreactorNewItemPanel />
                 </Provider>
 
             </span>

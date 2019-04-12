@@ -1,14 +1,14 @@
 ﻿import { computed, action } from "mobx";
 import { IColumn, Selection } from "office-ui-fabric-react/lib/DetailsList";
-import FabricreatorListStore from "./ListStore";
+import FabreactorListStore from "./ListStore";
 
-export default class FabricreatorDetailsListStore {
+export default class FabreactorDetailsListStore {
 
-    private root: FabricreatorListStore;
+    private root: FabreactorListStore;
 
     public selection: Selection;
 
-    constructor(private rootStore: FabricreatorListStore) {
+    constructor(private rootStore: FabreactorListStore) {
         this.root = this.rootStore;
 
         this.selection = new Selection({ onSelectionChanged: this.root.onSelectionChanged });

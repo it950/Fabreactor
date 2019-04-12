@@ -1,15 +1,15 @@
-﻿import { FabricreatorView, FabricreatorResultPage, FabricreatorQuery, FabricreatorItemProperties, FabricreatorNewItemResult } from "fabricreator";
+﻿import { FabreactorView, FabreactorResultPage, FabreactorQuery, FabreactorItemProperties, FabreactorNewItemResult } from "fabreactor";
 import * as faker from 'faker';
 import { of } from "rxjs";
 import { delay, map } from "rxjs/operators";
-import FabricreatorDataRepository from "./DataRepository";
+import FabreactorDataRepository from "./DataRepository";
 
-export default class FabricreatorListStore {
+export default class FabreactorListStore {
 
-    data: FabricreatorDataRepository;
-    views: FabricreatorView[] = [];
+    data: FabreactorDataRepository;
+    views: FabreactorView[] = [];
 
-    itemProperties: FabricreatorItemProperties = {
+    itemProperties: FabreactorItemProperties = {
         title: "name",
         description: "jobTitle",
         secondaryDescription: "jobType",
@@ -18,7 +18,7 @@ export default class FabricreatorListStore {
     }
 
     constructor(private itemCount: number = 1000, private itemsPerPage: number = 200) {
-        this.data = new FabricreatorDataRepository(this.itemCount);
+        this.data = new FabreactorDataRepository(this.itemCount);
         this.initViews();
         
     }
@@ -29,7 +29,7 @@ export default class FabricreatorListStore {
         return array.slice(startPosition, (startPosition + this.itemsPerPage));
     }
 
-    public onGetView = (query: FabricreatorQuery): Promise<FabricreatorResultPage> => {
+    public onGetView = (query: FabreactorQuery): Promise<FabreactorResultPage> => {
         return of(this.arrayToPage(this.data.items, query.page)).pipe(delay(500), map(y => {
             return {
                 items: y,
@@ -51,7 +51,7 @@ export default class FabricreatorListStore {
             .toPromise();
     }
 
-    public onNewItem = (): Promise<FabricreatorNewItemResult> => {
+    public onNewItem = (): Promise<FabreactorNewItemResult> => {
         const newItem = {
             item: this.data.newItem(),
             fields: this.data.fields
@@ -62,7 +62,7 @@ export default class FabricreatorListStore {
             .toPromise();
     }
 
-    public onSearch = (query: string): Promise<FabricreatorResultPage> => {
+    public onSearch = (query: string): Promise<FabreactorResultPage> => {
         return of(this.data.items.filter(t => t.name.toLowerCase().indexOf(query) > -1)).pipe(delay(500), map(y => {
             return {
                 items: y,
@@ -91,5 +91,5 @@ export default class FabricreatorListStore {
 }
 
 export const FakeStore = (itemCount: number, itemsPerPage: number) => {
-    new FabricreatorListStore(itemCount, itemsPerPage);
+    new FabreactorListStore(itemCount, itemsPerPage);
 }

@@ -1,7 +1,7 @@
 {
-  "name": "fabricreator",
+  "name": "fabreactor",
   "version": "0.0.0",
-  "description": "fabricreator",
+  "description": "fabreactor",
   "main": "build/lib/index.js",
   "types": "build/lib/index.d.ts",
   "author": {

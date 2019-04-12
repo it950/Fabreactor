@@ -1,9 +1,9 @@
-﻿import FabricreatorListStore from "./ListStore";
+﻿import FabreactorListStore from "./ListStore";
 import { computed, action } from "mobx";
 
-export default class FabricreatorViewItemStore {
+export default class FabreactorViewItemStore {
 
-    root: FabricreatorListStore;
+    root: FabreactorListStore;
 
     @action
     public onDismiss = () => {
@@ -53,7 +53,7 @@ export default class FabricreatorViewItemStore {
         return null;
     }
 
-    constructor(private rootStore: FabricreatorListStore) {
+    constructor(private rootStore: FabreactorListStore) {
         this.root = this.rootStore;
 
     }

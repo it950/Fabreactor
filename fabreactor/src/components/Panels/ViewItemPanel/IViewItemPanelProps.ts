@@ -1,5 +1,5 @@
-﻿import FabricreatorViewItemStore from "../../../stores/ViewItemStore";
+﻿import FabreactorViewItemStore from "../../../stores/ViewItemStore";
 
-export interface IFabricreatorViewItemPanelProps {
-    store?: FabricreatorViewItemStore;
+export interface IFabreactorViewItemPanelProps {
+    store?: FabreactorViewItemStore;
 }

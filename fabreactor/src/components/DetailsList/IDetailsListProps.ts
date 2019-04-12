@@ -1,5 +1,5 @@
-﻿import FabricreatorDetailsListStore from "../../stores/DetailsListStore";
+﻿import FabreactorDetailsListStore from "../../stores/DetailsListStore";
 
-export interface IFabricreatorDetailsListProps {
-    store?: FabricreatorDetailsListStore;
+export interface IFabreactorDetailsListProps {
+    store?: FabreactorDetailsListStore;
 }

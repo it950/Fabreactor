@@ -1,14 +1,14 @@
 ﻿import * as React from 'react';
 import { observer } from 'mobx-react';
 import './ItemPanel.module.css';
-import { IFabricreatorItemPanelProps } from './IItemPanelProps';
+import { IFabreactorItemPanelProps } from './IItemPanelProps';
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
 import { Persona, PersonaSize } from 'office-ui-fabric-react/lib/Persona';
 
 @observer
-export class FabricreatorItemPanel extends React.Component<IFabricreatorItemPanelProps, any> {
+export class FabreactorItemPanel extends React.Component<IFabreactorItemPanelProps, any> {
 
-    constructor(props: IFabricreatorItemPanelProps) {
+    constructor(props: IFabreactorItemPanelProps) {
         super(props);
     }
 

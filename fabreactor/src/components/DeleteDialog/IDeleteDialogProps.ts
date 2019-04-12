@@ -1,6 +1,6 @@
 ﻿import locales from "../../locales";
 
-export interface IFabricreatorDeleteDialogProps {
+export interface IFabreactorDeleteDialogProps {
     locales: locales;
     isVisible: boolean;
     itemCount: number;

@@ -1,20 +1,20 @@
 ﻿import { observable, action, computed } from "mobx";
-import { FabricreatorResultPage, FabricreatorView, FabricreatorQuery, FabriactActionProgress } from "../types";
-import FabricreatorCommandBarStore from "./CommandBarStore";
-import FabricreatorDetailsListStore from "./DetailsListStore";
+import { FabreactorResultPage, FabreactorView, FabreactorQuery, FabriactActionProgress } from "../types";
+import FabreactorCommandBarStore from "./CommandBarStore";
+import FabreactorDetailsListStore from "./DetailsListStore";
 import locales from "../locales";
-import { IFabricreatorListProps } from "../index";
+import { IFabreactorListProps } from "../index";
 import { from, Subscription } from "rxjs";
 import { concatMap, map, finalize } from "rxjs/operators";
-import FabricreatorViewItemStore from "./ViewItemStore";
-import FabricreatorNewItemStore from "./NewItemStore";
+import FabreactorViewItemStore from "./ViewItemStore";
+import FabreactorNewItemStore from "./NewItemStore";
 
-export default class FabricreatorListStore {
+export default class FabreactorListStore {
 
-    public commandBarStore: FabricreatorCommandBarStore;
-    public detailsListStore: FabricreatorDetailsListStore;
-    public viewItemStore: FabricreatorViewItemStore;
-    public newItemStore: FabricreatorNewItemStore;
+    public commandBarStore: FabreactorCommandBarStore;
+    public detailsListStore: FabreactorDetailsListStore;
+    public viewItemStore: FabreactorViewItemStore;
+    public newItemStore: FabreactorNewItemStore;
 
     public locales: locales;
 
@@ -23,10 +23,10 @@ export default class FabricreatorListStore {
 
 
     @observable
-    public items: FabricreatorResultPage[] = [];
+    public items: FabreactorResultPage[] = [];
 
     @observable
-    public views: FabricreatorView[];
+    public views: FabreactorView[];
 
     @observable
     public selectedItems: any[] = [];
@@ -47,15 +47,15 @@ export default class FabricreatorListStore {
     @observable
     public itemsDeleteFailed: any[] = [];
 
-    constructor(protected api: IFabricreatorListProps) {
+    constructor(protected api: IFabreactorListProps) {
         this.views = api.views;
 
         this.locales = new locales(this.api.language);
         
-        this.commandBarStore = new FabricreatorCommandBarStore(this);
-        this.detailsListStore = new FabricreatorDetailsListStore(this);
-        this.viewItemStore = new FabricreatorViewItemStore(this);
-        this.newItemStore = new FabricreatorNewItemStore(this);
+        this.commandBarStore = new FabreactorCommandBarStore(this);
+        this.detailsListStore = new FabreactorDetailsListStore(this);
+        this.viewItemStore = new FabreactorViewItemStore(this);
+        this.newItemStore = new FabreactorNewItemStore(this);
     }
 
     @computed
@@ -186,14 +186,14 @@ export default class FabricreatorListStore {
 
 
     @action
-    public fetchView = (query: FabricreatorQuery) => {
+    public fetchView = (query: FabreactorQuery) => {
         this.cancelView();
 
         this.viewSubscription = this.onGetView(query).subscribe();
     }
 
     @action
-    public onGetView = (query: FabricreatorQuery) => {
+    public onGetView = (query: FabreactorQuery) => {
         if (query.page == 1) {
             this.viewLoading = true;
         }

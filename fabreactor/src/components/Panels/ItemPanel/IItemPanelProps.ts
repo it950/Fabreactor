@@ -1,5 +1,5 @@
 ﻿
-export interface IFabricreatorItemPanelProps {
+export interface IFabreactorItemPanelProps {
     isOpen: boolean;
     onDismiss: () => void;
     title: string;

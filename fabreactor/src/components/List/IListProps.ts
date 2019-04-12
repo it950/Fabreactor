@@ -1,14 +1,14 @@
-﻿import { FabricreatorView, FabricreatorResultPage, FabricreatorQuery, FabricreatorItemProperties, FabricreatorNewItemResult } from "../../types";
+﻿import { FabreactorView, FabreactorResultPage, FabreactorQuery, FabreactorItemProperties, FabreactorNewItemResult } from "../../types";
 
-export interface IFabricreatorListProps {
-    views: FabricreatorView[];
-    itemProperties: FabricreatorItemProperties;
+export interface IFabreactorListProps {
+    views: FabreactorView[];
+    itemProperties: FabreactorItemProperties;
 
     defaultViewKey?: string;
     language?: string;
-    onSearch?: (query: string) => Promise<FabricreatorResultPage>;
+    onSearch?: (query: string) => Promise<FabreactorResultPage>;
     onDeleteItem?: (itemId: any) => Promise<boolean>;
-    onGetView: (query: FabricreatorQuery) => Promise<FabricreatorResultPage>;
-    onNewItem?: () => Promise<FabricreatorNewItemResult>;
+    onGetView: (query: FabreactorQuery) => Promise<FabreactorResultPage>;
+    onNewItem?: () => Promise<FabreactorNewItemResult>;
 
 }

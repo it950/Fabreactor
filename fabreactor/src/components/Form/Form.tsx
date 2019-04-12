@@ -1,11 +1,11 @@
 ﻿import * as React from 'react';
 import { observer } from 'mobx-react';
-import { IFabricreatorFormProps } from './IFormProps';
+import { IFabreactorFormProps } from './IFormProps';
 
 @observer
-export class FabricreatorForm extends React.Component<IFabricreatorFormProps, any> {
+export class FabreactorForm extends React.Component<IFabreactorFormProps, any> {
 
-    constructor(props: IFabricreatorFormProps) {
+    constructor(props: IFabreactorFormProps) {
         super(props);
 
     }

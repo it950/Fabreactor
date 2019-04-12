@@ -1,38 +1,38 @@
-﻿import { FabricreatorField, FabricreatorFieldType } from "fabricreator";
+﻿import { FabreactorField, FabreactorFieldType } from "fabreactor";
 import * as faker from 'faker';
 
-export default class FabricreatorDataRepository {
+export default class FabreactorDataRepository {
 
     items: any[] = [];
 
-    fields: FabricreatorField[] = [{
+    fields: FabreactorField[] = [{
         name: "Id",
         key: "id",
-        type: FabricreatorFieldType.text
+        type: FabreactorFieldType.text
     }, {
         name: "Name",
         key: "name",
-        type: FabricreatorFieldType.text
+        type: FabreactorFieldType.text
     }, {
         name: "Job Title",
         key: "jobTitle",
-        type: FabricreatorFieldType.text
+        type: FabreactorFieldType.text
     }, {
         name: "Job Type",
         key: "jobType",
-        type: FabricreatorFieldType.text
+        type: FabreactorFieldType.text
     }, {
         name: "Color",
         key: "color",
-        type: FabricreatorFieldType.color
+        type: FabreactorFieldType.color
     }, {
         name: "Created",
         key: "created",
-        type: FabricreatorFieldType.dateTime
+        type: FabreactorFieldType.dateTime
     }, {
         name: "Modified",
         key: "modified",
-        type: FabricreatorFieldType.dateTime
+        type: FabreactorFieldType.dateTime
     }
     ];
 

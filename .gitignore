@@ -11,3 +11,9 @@
 /fabricreator-faker/node_modules
 /fabricreator/node_modules
 /fabricreator/build/lib
+/fabreactor/build/lib
+/fabreactor/node_modules
+/fabreactor-storybook/build/lib
+/fabreactor-storybook/node_modules
+/fabreactor-faker/build/lib
+/fabreactor-faker/node_modules
