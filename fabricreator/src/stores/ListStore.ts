@@ -51,6 +51,7 @@ export default class FabricreatorListStore {
         this.views = api.views;
 
         this.locales = new locales(this.api.language);
+        
         this.commandBarStore = new FabricreatorCommandBarStore(this);
         this.detailsListStore = new FabricreatorDetailsListStore(this);
         this.viewItemStore = new FabricreatorViewItemStore(this);
