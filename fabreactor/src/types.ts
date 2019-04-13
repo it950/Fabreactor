@@ -1,23 +1,28 @@
 ﻿import { ButtonType } from "office-ui-fabric-react/lib/Button";
 
-export interface FabreactorFilter {
+export class FabreactorFilter {
     key: string;
     values: any[];
 }
 
-export interface FabreactorQuery {
+export class FabreactorLookup {
+    key: string;
+    title: string;
+}
+
+export class FabreactorQuery {
     viewKey: string;
     page: number;
     filters: FabreactorFilter[];
 }
 
-export interface FabreactorResultPage {
+export class FabreactorResultPage {
     items: any[];
     page: number;
     totalPages: number;
 }
 
-export interface FabreactorAction {
+export class FabreactorAction {
     name: string;
     key: string;
     icon?: string;
@@ -25,18 +30,18 @@ export interface FabreactorAction {
     actions?: FabreactorAction[];
 }
 
-export interface FabreactorFieldGroup {
+export class FabreactorFieldGroup {
     name: string;
     fields?: FabreactorField[];
 }
 
-export interface FabreactorForm {
+export class FabreactorForm {
     item: any;
     groups: FabreactorFieldGroup[];
     actions?: FabreactorAction[];
 }
 
-export interface FabreactorButton {
+export class FabreactorButton {
     text: string;
     key: string;
     type: ButtonType;
@@ -44,6 +49,7 @@ export interface FabreactorButton {
 
 export class FabreactorField {
     name: string;
+    description?: string;
     key: string;
     type: FabreactorFieldType;
     sortable?: boolean;
@@ -51,6 +57,12 @@ export class FabreactorField {
     filterable?: boolean;
     readOnly?: boolean;
     required?: boolean;
+
+    // Used on metadata, choice, lookup, user fields
+    multiValue?: boolean;
+
+    // Used on metadata, choice fields
+    options?: FabreactorLookup[];
 }
 
 export enum FabreactorFieldType {
@@ -59,19 +71,18 @@ export enum FabreactorFieldType {
     email = 2,
     lookup = 3,
     boolean = 4,
-    integer = 5,
-    user = 6,
-    dateTime = 7,
-    number = 8,
-    image = 9,
-    phone = 10,
-    multiLine = 11,
-    choice = 12,
-    percent = 13,
-    currency = 14,
-    managedMetadata = 15,
-    file = 17,
-    color = 18
+    user = 5,
+    datetime = 6,
+    number = 7,
+    image = 8,
+    phone = 9,
+    multiline = 10,
+    choice = 11,
+    percent = 12,
+    currency = 13,
+    metadata = 14,
+    file = 15,
+    color = 16
 }
 
 export enum FabreactorDynamicViewType {
@@ -86,7 +97,7 @@ export enum FabreactorActionType {
     service = 3,
 }
 
-export interface FabreactorView {
+export class FabreactorView {
     name: string;
     key: string;
     dynamicViewType?: FabreactorDynamicViewType;
@@ -94,7 +105,7 @@ export interface FabreactorView {
     fields: FabreactorField[];
 }
 
-export interface FabreactorItemProperties {
+export class FabreactorItemProperties {
     key: string;
     title: string;
     description: string;
@@ -102,7 +113,7 @@ export interface FabreactorItemProperties {
     color: string;
 }
 
-export interface FabriactActionProgress {
+export class FabriactActionProgress {
     title: any;
     description?: string;
     percentComplete: number;

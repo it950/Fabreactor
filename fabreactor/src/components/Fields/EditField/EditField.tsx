@@ -3,6 +3,8 @@ import { observer } from 'mobx-react';
 import { IFabreactorEditFieldProps } from './IEditFieldProps';
 import { FabreactorFieldType } from '../../../types';
 import { FabreactorTextEditField } from '../TextField/TextEditField';
+import { IFabreactorFieldEditProps } from '../IFieldEditProps';
+import { FabreactorMetadataEditField } from '../MetadataField/MetadataEditField';
 
 @observer
 export class FabreactorEditField extends React.Component<IFabreactorEditFieldProps, any> {
@@ -29,11 +31,36 @@ export class FabreactorEditField extends React.Component<IFabreactorEditFieldPro
 
         let html = null;
 
+        const fieldProps: IFabreactorFieldEditProps = {
+            value: value,
+            autoFocus: autoFocus,
+            errorMessage: errorMessage,
+            onChange: onFieldChange,
+            onValidate: onFieldValidate,
+            required: field.required,
+            description: field.description,
+            label: field.name
+        };
+
         switch (field.type) {
 
             case FabreactorFieldType.text:
-                html = <FabreactorTextEditField value={value} onChange={onFieldChange} label={field.name} autoFocus={autoFocus}
-                    errorMessage={errorMessage} required={field.required} onValidate={onFieldValidate} />;
+                html = <FabreactorTextEditField fieldProps={fieldProps} />;
+                break;
+            case FabreactorFieldType.multiline:
+                html = <FabreactorTextEditField fieldProps={fieldProps} multiline={true} />;
+                break;
+            case FabreactorFieldType.url:
+                html = <FabreactorTextEditField icon={"Link"} fieldProps={fieldProps} />;
+                break;
+            case FabreactorFieldType.email:
+                html = <FabreactorTextEditField icon={"Mail"} fieldProps={fieldProps} />;
+                break;
+            case FabreactorFieldType.phone:
+                html = <FabreactorTextEditField icon={"Phone"} fieldProps={fieldProps} />;
+                break;
+            case FabreactorFieldType.metadata:
+                html = <FabreactorMetadataEditField options={field.options!} fieldProps={fieldProps} multiValue={field.multiValue} />;
                 break;
             default:
                 break;

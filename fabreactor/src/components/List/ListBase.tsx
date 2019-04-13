@@ -3,17 +3,16 @@ import { observer, inject, Provider } from 'mobx-react';
 import { IFabreactorListBaseProps } from './IListBaseProps';
 import { FabreactorDetailsList } from '../DetailsList/DetailsList';
 import { FabreactorCommandBar } from '../CommandBar/CommandBar';
-import { FabreactorDeleteFailedMessageBar } from '../MessageBars/DeleteFailedMessageBar/DeleteFailedMessageBar';
-import { FabreactorViewItemPanel } from '../Panels/ViewItemPanel/ViewItemPanel';
-import { FabreactorNewItemPanel } from '../Panels/NewItemPanel/NewItemPanel';
+import { FabreactorDeleteFailedMessageBar } from '../MessageBars';
+import { FabreactorViewItemPanel, FabreactorNewItemPanel } from '../Panels';
+import { ScrollablePane } from "office-ui-fabric-react/lib/ScrollablePane";
+import { Sticky, StickyPositionType } from 'office-ui-fabric-react/lib/Sticky';
 
 @inject("store")
 @observer
 export class FabreactorListBase extends React.Component<IFabreactorListBaseProps, any> {
     constructor(props: IFabreactorListBaseProps) {
         super(props);
-      
-
     }
 
     componentDidMount() {
@@ -25,19 +24,25 @@ export class FabreactorListBase extends React.Component<IFabreactorListBaseProps
     }
 
     render() {
-        const { commandBarStore, detailsListStore, locales, itemsDeleteFailed, dismissFailedDelete, viewItemStore, newItemStore } = this.props.store!;
+        const { commandBarStore, detailsListStore, locales, failedDeleteItemCount, dismissFailedDelete, viewItemStore, newItemStore } = this.props.store!;
 
         return (
             <span>
-                <FabreactorDeleteFailedMessageBar locales={locales} itemCount={itemsDeleteFailed.length} onDismiss={dismissFailedDelete} />
+                <FabreactorDeleteFailedMessageBar locales={locales} itemCount={failedDeleteItemCount} onDismiss={dismissFailedDelete} />
 
-                <Provider store={commandBarStore}>
-                    <FabreactorCommandBar />
-                </Provider>
+                <ScrollablePane>
 
-                <Provider store={detailsListStore}>
-                    <FabreactorDetailsList />
-                </Provider>
+                    <Sticky stickyPosition={StickyPositionType.Header}>
+                        <Provider store={commandBarStore}>
+                            <FabreactorCommandBar />
+                        </Provider>
+                    </Sticky>
+
+                    <Provider store={detailsListStore}>
+                        <FabreactorDetailsList />
+                    </Provider>
+
+                </ScrollablePane>
 
                 <Provider store={viewItemStore}>
                     <FabreactorViewItemPanel />

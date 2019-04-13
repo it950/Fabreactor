@@ -4,7 +4,7 @@ import { of } from "rxjs";
 import { delay, map } from "rxjs/operators";
 import FabreactorDataRepository from "./DataRepository";
 
-export default class FabreactorListStore {
+export default class FabreactorProvider {
 
     data: FabreactorDataRepository;
     views: FabreactorView[] = [];
@@ -63,7 +63,7 @@ export default class FabreactorListStore {
     }
 
     public onAddItem = (item: any): Promise<any> => {
-        const onAddError = faker.random.number(100) < 80;
+        const onAddError = faker.random.number(100) < 20;
 
         if (onAddError) {
             return of(delay(500)).pipe(map(d => {
@@ -95,16 +95,12 @@ export default class FabreactorListStore {
         }, {
             name: "View 2",
             key: "view2",
-            fields: this.data.fields.slice(2, 6)
+            fields: this.data.fields.slice(5, 10)
         }, {
             name: "Dyanmic view",
             key: "dynamicview",
-            fields: this.data.fields.slice(2, 4)
+            fields: this.data.fields.slice(4, 7)
         }];
     }
 
-}
-
-export const FakeStore = (itemCount: number, itemsPerPage: number) => {
-    new FabreactorListStore(itemCount, itemsPerPage);
 }

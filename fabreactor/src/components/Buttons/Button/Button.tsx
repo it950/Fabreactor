@@ -13,7 +13,7 @@ export class FabreactorButton extends React.Component<IFabreactorButtonProps, an
 
     private onClick = () => {
         const { button, onClick } = this.props;
-
+        console.log(button);
         onClick(button.key);
     }
 

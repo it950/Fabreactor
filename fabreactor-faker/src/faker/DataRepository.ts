@@ -1,9 +1,11 @@
 ﻿import { FabreactorField, FabreactorFieldType, FabreactorFieldGroup } from "fabreactor";
-import * as faker from 'faker';
+import 'faker';
+import * as faker from 'faker/locale/nl';
 
 export default class FabreactorDataRepository {
 
     items: any[] = [];
+    metadata: any[] = [];
 
     fields: FabreactorFieldExtension[] = [{
         name: "Id",
@@ -17,6 +19,37 @@ export default class FabreactorDataRepository {
         required: true,
         group: "Group 1",
         type: FabreactorFieldType.text
+    }, {
+        name: "Email",
+        key: "email",
+        group: "Group 1",
+        type: FabreactorFieldType.email
+    }, {
+        name: "Phone",
+        key: "phone",
+        group: "Group 1",
+        type: FabreactorFieldType.phone
+    }, {
+        name: "Url",
+        key: "url",
+        group: "Group 1",
+        type: FabreactorFieldType.url
+    }, {
+        name: "Metadata",
+        key: "metadata",
+        group: "Group 1",
+        type: FabreactorFieldType.metadata
+    }, {
+        name: "Metadata multi",
+        key: "metadatamulti",
+        multiValue: true,
+        group: "Group 1",
+        type: FabreactorFieldType.metadata
+    }, {
+        name: "Multiline",
+        key: "multiline",
+        group: "Group 1",
+        type: FabreactorFieldType.multiline
     }, {
         name: "Job Title",
         key: "jobTitle",
@@ -36,17 +69,26 @@ export default class FabreactorDataRepository {
         name: "Created",
         key: "created",
         readOnly: true,
-        type: FabreactorFieldType.dateTime
+        type: FabreactorFieldType.datetime
     }, {
         name: "Modified",
         key: "modified",
         readOnly: true,
-        type: FabreactorFieldType.dateTime
-    }
-    ];
+        type: FabreactorFieldType.datetime
+    }];
 
     get newItemFields(): FabreactorFieldGroup[] {
-        const grouped = this.groupBy(this.fields.filter(t => t.group && !t.readOnly), "group");
+
+        const fields = this.fields.filter(t => t.group && !t.readOnly);
+
+        fields.forEach(t => {
+            if (t.type == FabreactorFieldType.metadata) {
+                t.options = this.metadata;
+            }
+        });
+
+        const grouped = this.groupBy(fields, "group");
+
         return Object.keys(grouped).map(t => {
             return {
                 name: t,
@@ -68,9 +110,22 @@ export default class FabreactorDataRepository {
             name: faker.name.findName(),
             jobTitle: faker.name.jobTitle(),
             jobType: faker.name.jobType(),
+            email: faker.internet.email(),
+            phone: faker.phone.phoneNumber(),
+            url: faker.internet.url(),
+            metadata: this.metadata[faker.random.number(4)],
+            metadatamulti: this.metadata.filter(y => faker.random.number(50) > 20),
+            multiline: faker.lorem.lines(),
             color: faker.internet.color(),
             created: new Date(),
             modified: faker.date.recent(),
+        };
+    }
+
+    public randomMetadata = () => {
+        return {
+            key: faker.random.uuid(),
+            title: faker.database.type(),
         };
     }
 
@@ -92,10 +147,17 @@ export default class FabreactorDataRepository {
     }
 
     private initData() {
+
+        for (let i = 0; i < 5; i++) {
+            this.metadata.push(this.randomMetadata());
+        }
+
         for (let i = 0; i < this.itemCount; i++) {
 
             this.items.push(this.randomItem());
         }
+
+
     }
 
     constructor(private itemCount: number) {

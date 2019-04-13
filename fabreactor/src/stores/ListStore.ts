@@ -41,7 +41,7 @@ export default class FabreactorListStore {
     public actionProgress: FabriactActionProgress | null;
 
     @observable
-    public itemsDeleteFailed: any[] = [];
+    private itemsDeleteFailed: any[] = [];
 
     constructor(protected api: IFabreactorListProps) {
         this.views = api.views;
@@ -52,6 +52,11 @@ export default class FabreactorListStore {
         this.detailsListStore = new FabreactorDetailsListStore(this);
         this.viewItemStore = new FabreactorViewItemStore(this);
         this.newItemStore = new FabreactorNewItemStore(this);
+    }
+
+    @computed
+    get failedDeleteItemCount() {
+        return this.itemsDeleteFailed.length;
     }
 
     @computed

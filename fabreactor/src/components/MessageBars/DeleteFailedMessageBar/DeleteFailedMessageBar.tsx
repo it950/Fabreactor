@@ -1,14 +1,14 @@
 ﻿import * as React from 'react';
 import { observer } from 'mobx-react';
 import { IFabreactorDeleteFailedMessageBarProps } from './IDeleteFailedMessageBarProps';
-import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+import { FabreactorMessageBar } from '../MessageBar/MessageBar';
 
 @observer
 export class FabreactorDeleteFailedMessageBar extends React.Component<IFabreactorDeleteFailedMessageBarProps, any> {
 
     constructor(props: IFabreactorDeleteFailedMessageBarProps) {
         super(props);
-
     }
 
     render() {
@@ -16,13 +16,11 @@ export class FabreactorDeleteFailedMessageBar extends React.Component<IFabreacto
         const warning = locales.strings.formatString(locales.strings.deleteFailed, itemCount);
 
         const messageBar = itemCount > 0 ?
-            <MessageBar
-                messageBarType={MessageBarType.warning}
-                isMultiline={false}
-                onDismiss={onDismiss}
-                dismissButtonAriaLabel="Close">
+            <FabreactorMessageBar
+                type={MessageBarType.warning}
+                onDismiss={onDismiss}>
                 {warning}
-            </MessageBar>
+            </FabreactorMessageBar>
             : <span></span>;
 
         return (

@@ -5,7 +5,8 @@ import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { FabreactorForm } from '../../Form/Form';
 import { FabreactorButtonRow } from '../../Buttons/ButtonRow/ButtonRow';
-import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+import { MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+import { FabreactorMessageBar } from '../../MessageBars';
 
 @inject('store')
 @observer
@@ -25,11 +26,14 @@ export class FabreactorNewItemPanel extends React.Component<IFabreactorNewItemPa
     render() {
         const { title, isOpen, isLoading, locales, fields, item, errorMessage, dismissError,
             onFieldChange, onDismiss, onFieldValidate, errorMessages, isSaving } = this.props.store!;
+
         const { onRenderButtonRow } = this;
 
-        const errorBar = errorMessage ? <MessageBar messageBarType={MessageBarType.error} isMultiline={false} onDismiss={dismissError} dismissButtonAriaLabel="Close">
-            {errorMessage}
-        </MessageBar> : <span></span>;
+        const errorBar = errorMessage ?
+            <FabreactorMessageBar type={MessageBarType.error} onDismiss={dismissError}>
+                {errorMessage}
+            </FabreactorMessageBar>
+            : <span></span>;
 
         const panelContent = isLoading || isSaving ? <Spinner size={SpinnerSize.large} />
             : <FabreactorForm onFieldChange={onFieldChange} locales={locales} errorMessages={errorMessages}

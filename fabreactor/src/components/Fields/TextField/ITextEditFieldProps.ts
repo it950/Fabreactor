@@ -1,12 +1,7 @@
-﻿
+﻿import { IFabreactorFieldEditProps } from "../IFieldEditProps";
+
 export interface IFabreactorTextEditFieldProps {
-    value?: string;
-    description?: string;
-    label?: string;
+    fieldProps: IFabreactorFieldEditProps;
     icon?: string;
-    onChange: (value: any) => void;
-    onValidate: (value: any) => string;
-    required?: boolean;
-    autoFocus?: boolean;
-    errorMessage?: string;
+    multiline?: boolean;
 }
