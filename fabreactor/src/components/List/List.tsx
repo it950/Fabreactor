@@ -19,6 +19,7 @@ export class FabreactorList extends React.Component<IFabreactorListProps, any> {
             onDeleteItem: this.props.onDeleteItem,
             onNewItem: this.props.onNewItem,
             onSearch: this.props.onSearch,
+            onAddItem: this.props.onAddItem,
             itemProperties: this.props.itemProperties,
             language: this.props.language
         });

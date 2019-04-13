@@ -1,4 +1,6 @@
-﻿export interface FabreactorFilter {
+﻿import { ButtonType } from "office-ui-fabric-react/lib/Button";
+
+export interface FabreactorFilter {
     key: string;
     values: any[];
 }
@@ -15,12 +17,6 @@ export interface FabreactorResultPage {
     totalPages: number;
 }
 
-
-export interface FabreactorNewItemResult {
-    item: any;
-    fields: FabreactorField[];
-}
-
 export interface FabreactorAction {
     name: string;
     key: string;
@@ -29,28 +25,32 @@ export interface FabreactorAction {
     actions?: FabreactorAction[];
 }
 
-export interface FabreactorGroup {
+export interface FabreactorFieldGroup {
     name: string;
-    key: string;
-    collapsable?: boolean;
-    actions?: FabreactorAction[];
     fields?: FabreactorField[];
-
 }
 
-export interface FabreactorField {
+export interface FabreactorForm {
+    item: any;
+    groups: FabreactorFieldGroup[];
+    actions?: FabreactorAction[];
+}
+
+export interface FabreactorButton {
+    text: string;
+    key: string;
+    type: ButtonType;
+}
+
+export class FabreactorField {
     name: string;
     key: string;
     type: FabreactorFieldType;
     sortable?: boolean;
     minWidth?: number;
     filterable?: boolean;
-}
-
-export interface FabriactViewForm {
-    item: any;
-    groups: FabreactorGroup[];
-    actions?: FabreactorAction[];
+    readOnly?: boolean;
+    required?: boolean;
 }
 
 export enum FabreactorFieldType {
@@ -71,10 +71,8 @@ export enum FabreactorFieldType {
     currency = 14,
     managedMetadata = 15,
     file = 17,
-    color = 18,
-    login = 19
+    color = 18
 }
-
 
 export enum FabreactorDynamicViewType {
     month = 0,
@@ -96,7 +94,6 @@ export interface FabreactorView {
     fields: FabreactorField[];
 }
 
-
 export interface FabreactorItemProperties {
     key: string;
     title: string;
@@ -104,7 +101,6 @@ export interface FabreactorItemProperties {
     secondaryDescription: string;
     color: string;
 }
-
 
 export interface FabriactActionProgress {
     title: any;

@@ -1,9 +1,10 @@
 ﻿import * as React from 'react';
 import { observer, inject } from 'mobx-react';
 import { IFabreactorDetailsListProps } from './IDetailsListProps';
-import { DetailsList, IDetailsRowProps } from 'office-ui-fabric-react/lib/DetailsList';
+import { DetailsList, IDetailsRowProps, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { FabreactorProgressBar } from '../ProgressBar/ProgressBar';
+import { FabreactorDisplayField } from '../Fields/DisplayField/DisplayField';
 
 @inject('store')
 @observer
@@ -23,16 +24,26 @@ export class FabreactorDetailsList extends React.Component<IFabreactorDetailsLis
         );
     }
 
+    private onRenderItemColumn = (item: any, index: number, column: IColumn) => {
+        const { locales, fields } = this.props.store!;
+        const field = fields.find(a => a.key == column.key);
+        const value = item[column.key];
+
+        return (
+            <FabreactorDisplayField locales={locales} field={field!} value={value} />
+        );
+    }
    
     render() {
         const { columns, listItems, viewLoading, selection, actionProgress, keyProperty } = this.props.store!;
-        const { renderMissingItem } = this;
+        const { renderMissingItem, onRenderItemColumn } = this;
 
         const detailList = viewLoading ? <Spinner /> : actionProgress ?
             <FabreactorProgressBar percentComplete={actionProgress!.percentComplete} description={actionProgress!.description}
                 title={actionProgress!.title} />
             :
             <DetailsList items={listItems} onRenderMissingItem={renderMissingItem} key={keyProperty}
+                onRenderItemColumn={onRenderItemColumn}
             selection={selection} selectionPreservedOnEmptyClick={true} columns={columns} />;
 
         return (

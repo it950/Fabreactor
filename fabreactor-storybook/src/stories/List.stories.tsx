@@ -13,13 +13,15 @@ const smallPageFaker = new FakeStore(10, 1);
         "NL",
     (() => (
         <FabreactorList views={storeFaker.views} onGetView={storeFaker.onGetView} language={"nl-NL"} onNewItem={storeFaker.onNewItem}
+            onAddItem={storeFaker.onAddItem}
             onDeleteItem={storeFaker.onDeleteItem} onSearch={storeFaker.onSearch} itemProperties={storeFaker.itemProperties} />
         ))
     )
     .addWithJSX(
         "Small pagesize",
     (() => (
-        <FabreactorList views={smallPageFaker.views} onGetView={smallPageFaker.onGetView} 
+        <FabreactorList views={smallPageFaker.views} onGetView={smallPageFaker.onGetView} onNewItem={storeFaker.onNewItem}
+            onAddItem={storeFaker.onAddItem}
                 onDeleteItem={smallPageFaker.onDeleteItem} itemProperties={smallPageFaker.itemProperties} />
         ))
     );

@@ -12,5 +12,6 @@ storiesOf("Welcome", module).addWithJSX(
   "Fabreactor",
  
     (() => <FabreactorList views={storeFaker.views} onGetView={storeFaker.onGetView} onNewItem={storeFaker.onNewItem}
+        onAddItem={storeFaker.onAddItem}
         onDeleteItem={storeFaker.onDeleteItem} itemProperties={storeFaker.itemProperties} />)
 );

@@ -3,18 +3,11 @@ import { ICommandBarItemProps } from "office-ui-fabric-react/lib/CommandBar";
 import { IContextualMenuProps } from "office-ui-fabric-react/lib/ContextualMenu";
 import FabreactorListStore from "./ListStore";
 
+const SEARCH_KEY: string = "search";
 
 export default class FabreactorCommandBarStore {
 
     private root: FabreactorListStore;
-
-    searchKey = "search";
-
-    constructor(private rootStore: FabreactorListStore) {
-        this.root = this.rootStore;
-
-        this.currentViewKey = this.root.defaultViewKey;
-    }
 
     @observable
     public searchQuery: string | null;
@@ -25,9 +18,20 @@ export default class FabreactorCommandBarStore {
     @observable
     public confirmDelete: boolean;
 
+    constructor(private rootStore: FabreactorListStore) {
+        this.root = this.rootStore;
+
+        this.currentViewKey = this.root.defaultViewKey;
+    }
+
     @computed
     get locales() {
         return this.root.locales;
+    }
+
+    @computed
+    get searchKey() {
+        return SEARCH_KEY;
     }
 
     @computed
@@ -47,7 +51,7 @@ export default class FabreactorCommandBarStore {
 
         if (this.root.hasSearch) {
             items.push({
-                key: this.searchKey,
+                key: SEARCH_KEY,
             });
         }
 
@@ -55,7 +59,7 @@ export default class FabreactorCommandBarStore {
             items.push({
                 key: "new",
                 iconProps: { iconName: "Add" },
-                onClick: this.root.onNewItem,
+                onClick: this.root.onShowNewWizard,
                 name: this.root.locales.strings.new,
             });
         }
@@ -92,7 +96,7 @@ export default class FabreactorCommandBarStore {
         if (this.searchQuery != null) {
             subMenu.items.push({
                 name: searchName,
-                key: this.searchKey,
+                key: SEARCH_KEY,
             });
         }
 
@@ -123,7 +127,7 @@ export default class FabreactorCommandBarStore {
 
     @action
     public onViewClicked = (key: string) => {
-        if (this.currentViewKey != key && key != this.searchKey) {
+        if (this.currentViewKey != key && key != SEARCH_KEY) {
             this.searchQuery = null;
             this.currentViewKey = key;
             this.root.onViewClicked(key);
@@ -133,6 +137,7 @@ export default class FabreactorCommandBarStore {
     @action
     public onSearch = (query: string) => {
         this.searchQuery = query;
+        this.currentViewKey = this.searchKey;
 
         this.root.onSearch(this.searchQuery);
     }
@@ -140,7 +145,9 @@ export default class FabreactorCommandBarStore {
     @action
     public onSearchCleared = () => {
         this.searchQuery = null;
+        
 
+        console.log(this.root.defaultViewKey);
         this.onViewClicked(this.root.defaultViewKey);
     }
 

@@ -15,6 +15,11 @@ export default class FabreactorDetailsListStore {
     }
 
     @computed
+    get locales() {
+        return this.root.locales;
+
+    }
+    @computed
     get keyProperty() {
         return this.root.keyProperty;
     }
@@ -44,6 +49,11 @@ export default class FabreactorDetailsListStore {
     }
 
     @computed
+    get fields() {
+        return this.root.currentViewFields;
+    }
+
+    @computed
     get columns(): IColumn[] {
         return this.root.currentViewFields.map(t => {
             return {
@@ -69,7 +79,6 @@ export default class FabreactorDetailsListStore {
     }
 
     public deselectKey = (key: any) => {
-        console.log(key);
         this.selection.setKeySelected(key, false, false);
     }
 }

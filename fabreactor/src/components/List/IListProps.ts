@@ -1,4 +1,4 @@
-﻿import { FabreactorView, FabreactorResultPage, FabreactorQuery, FabreactorItemProperties, FabreactorNewItemResult } from "../../types";
+﻿import { FabreactorView, FabreactorResultPage, FabreactorQuery, FabreactorItemProperties, FabreactorForm } from "../../types";
 
 export interface IFabreactorListProps {
     views: FabreactorView[];
@@ -9,6 +9,7 @@ export interface IFabreactorListProps {
     onSearch?: (query: string, page: number) => Promise<FabreactorResultPage>;
     onDeleteItem?: (itemId: any) => Promise<boolean>;
     onGetView: (query: FabreactorQuery) => Promise<FabreactorResultPage>;
-    onNewItem?: () => Promise<FabreactorNewItemResult>;
+    onNewItem?: () => Promise<FabreactorForm>;
+    onAddItem?: (item: any) => Promise<any>;
 
 }

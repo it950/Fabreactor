@@ -1,4 +1,4 @@
-﻿import { observable, action, computed } from "mobx";
+﻿import { observable, action, computed, toJS } from "mobx";
 import { FabreactorResultPage, FabreactorView, FabreactorQuery, FabriactActionProgress } from "../types";
 import FabreactorCommandBarStore from "./CommandBarStore";
 import FabreactorDetailsListStore from "./DetailsListStore";
@@ -36,9 +36,6 @@ export default class FabreactorListStore {
 
     @observable
     public viewItemPanelVisible: boolean;
-
-    @observable
-    public newItemPanelVisible: boolean;
 
     @observable
     public actionProgress: FabriactActionProgress | null;
@@ -91,7 +88,7 @@ export default class FabreactorListStore {
 
     @computed
     get hasNewItem() {
-        return this.api.onNewItem != null;
+        return this.api.onNewItem != null && this.api.onAddItem != null;
     }
 
     @computed
@@ -146,18 +143,28 @@ export default class FabreactorListStore {
     }
 
     @action
-    public onNewItem = () => {
-        this.newItemPanelVisible = true;
+    public onShowNewWizard = () => {
+        this.newItemStore.open();
+    }
 
-        from(this.api.onNewItem!()).pipe(map(y => {
-            this.newItemStore.newItemFields = y.fields;
-            this.newItemStore.newItem = y.item;
-        })).subscribe();
+    @action
+    public onNewItem = () => {
+        return this.api.onNewItem!();
     }
 
     @action
     public onSearch = (query: string) => {
         this.fetchSearch(query, 1);
+    }
+
+
+    @action
+    public onAddItem = (item: any) => {
+        return from(this.api.onAddItem!(toJS(item))).pipe(map(y => {
+            this.addItem(y);
+
+            return y;
+        })).toPromise();
     }
 
     @action
@@ -180,30 +187,16 @@ export default class FabreactorListStore {
         }
     }
 
-    @action
-    private onGetSearch = (query: string, page: number) => {
-        if (page == 1) {
-            this.viewLoading = true;
-        }
-
-        return from(this.api.onSearch!(query, page)).pipe(
-            map(y => this.mapResultPage(this.commandBarStore.searchKey, y)),
-            finalize(() => {
-                this.viewLoading = false;
-            }));
-    }
 
     @action
-    private onGetView = (query: FabreactorQuery) => {
-        if (query.page == 1) {
-            this.viewLoading = true;
+    private addItem = (item: any) => {
+        if (this.items.length > 0) {
+            const items = this.items[0].items;
+            items.splice(0, 0, item);
         }
-
-        return from(this.api.onGetView(query)).pipe(
-            map(y => this.mapResultPage(query.viewKey, y)),
-            finalize(() => {
-            this.viewLoading = false;
-        }));
+        else {
+            this.items = [{ items: [ item ], page: 1, totalPages: 1 }]
+        }
     }
 
     @action
@@ -273,6 +266,33 @@ export default class FabreactorListStore {
             }));
     }
 
+
+    @action
+    private onGetSearch = (query: string, page: number) => {
+        if (page == 1) {
+            this.viewLoading = true;
+        }
+
+        return from(this.api.onSearch!(query, page)).pipe(
+            map(y => this.mapResultPage(this.commandBarStore.searchKey, y)),
+            finalize(() => {
+                this.viewLoading = false;
+            }));
+    }
+
+    @action
+    private onGetView = (query: FabreactorQuery) => {
+        if (query.page == 1) {
+            this.viewLoading = true;
+        }
+
+        return from(this.api.onGetView(query)).pipe(
+            map(y => this.mapResultPage(query.viewKey, y)),
+            finalize(() => {
+                this.viewLoading = false;
+            }));
+    }
+
     @action
     private cancelDelete = () => {
         if (this.deleteSubscription) {
@@ -301,26 +321,27 @@ export default class FabreactorListStore {
         this.cancelView();
     }
 
-    private buildQuery(page: number) {
-        return {
-            viewKey: this.commandBarStore.currentView!.key,
-            page: page,
-            filters: []
-        }
-    }
 
-    private fetchSearch = (query: string, page: number) => {
+    public fetchSearch = (query: string, page: number) => {
         this.cancelView();
         this.cancelDelete();
 
         this.searchSubscription = this.onGetSearch(query, page).subscribe();
     }
 
-    private fetchView = (query: FabreactorQuery) => {
+    public fetchView = (query: FabreactorQuery) => {
         this.cancelView();
         this.cancelDelete();
 
         this.viewSubscription = this.onGetView(query).subscribe();
+    }
+
+    private buildQuery = (page: number) => {
+        return {
+            viewKey: this.commandBarStore.currentView!.key,
+            page: page,
+            filters: []
+        }
     }
 
     public init = () => {

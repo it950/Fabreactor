@@ -1,4 +1,4 @@
-﻿import { FabreactorView, FabreactorResultPage, FabreactorQuery, FabreactorItemProperties, FabreactorNewItemResult } from "fabreactor";
+﻿import { FabreactorView, FabreactorResultPage, FabreactorQuery, FabreactorItemProperties, FabreactorForm } from "fabreactor";
 import * as faker from 'faker';
 import { of } from "rxjs";
 import { delay, map } from "rxjs/operators";
@@ -51,13 +51,27 @@ export default class FabreactorListStore {
             .toPromise();
     }
 
-    public onNewItem = (): Promise<FabreactorNewItemResult> => {
-        const newItem = {
+    public onNewItem = (): Promise<FabreactorForm> => {
+        const newItem: FabreactorForm = {
             item: this.data.newItem(),
-            fields: this.data.fields
+            groups: this.data.newItemFields
         };
 
         return of(newItem)
+            .pipe(delay(500))
+            .toPromise();
+    }
+
+    public onAddItem = (item: any): Promise<any> => {
+        const onAddError = faker.random.number(100) < 80;
+
+        if (onAddError) {
+            return of(delay(500)).pipe(map(d => {
+                throw new Error("Some random error. Please try again.");
+            })).toPromise();
+        }
+
+        return of(this.data.addItem(item))
             .pipe(delay(500))
             .toPromise();
     }
@@ -81,11 +95,11 @@ export default class FabreactorListStore {
         }, {
             name: "View 2",
             key: "view2",
-            fields: this.data.fields.slice(1, 5)
+            fields: this.data.fields.slice(2, 6)
         }, {
             name: "Dyanmic view",
             key: "dynamicview",
-            fields: this.data.fields.slice(1, 4)
+            fields: this.data.fields.slice(2, 4)
         }];
     }
 
